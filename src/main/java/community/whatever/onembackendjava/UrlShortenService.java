@@ -13,6 +13,7 @@ import java.util.Random;
 @Service
 public class UrlShortenService {
     private final Map<String, String> shortenUrls = new HashMap<>();
+    private final Random random = new Random();
 
     public SearchShortenUrlResponse searchShortenUrl(SearchShortenUrlRequest request) {
         if (!shortenUrls.containsKey(request.key())) {
@@ -22,7 +23,7 @@ public class UrlShortenService {
     }
 
     public CreateShortenUrlResponse createShortenUrl(CreateShortenUrlRequest request) {
-        String randomKey = String.valueOf(new Random().nextInt(10000));
+        String randomKey = String.valueOf(random.nextInt(10000));
         shortenUrls.put(randomKey, request.originUrl());
         return new CreateShortenUrlResponse(randomKey);
     }
